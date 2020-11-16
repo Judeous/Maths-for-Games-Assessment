@@ -1,0 +1,5 @@
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.exe
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csprojAssemblyReference.cache
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.AssemblyInfoInputs.cache
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.AssemblyInfo.cs
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csproj.CoreCompileInputs.cache

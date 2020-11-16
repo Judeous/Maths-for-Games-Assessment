@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "6uMoJLEYZ5AqiRmZ4ikdmGuHj/nmYb95evpr9qksnU1ObbEWB8Y695GyHntMmhE+RQPWx6fMO7lHNjUrDcEpeA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathLibrary\\MathLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jude\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Jude\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
