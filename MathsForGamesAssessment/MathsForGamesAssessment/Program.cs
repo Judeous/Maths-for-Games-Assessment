@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Maths_For_Games_Assessment
+namespace MathsForGamesAssessment
 {
     public class Program
     {

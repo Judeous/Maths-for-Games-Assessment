@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Maths_For_Games_Assessment
+namespace MathsForGamesAssessment
 {
     public class Scene
     {

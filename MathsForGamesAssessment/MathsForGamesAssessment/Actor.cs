@@ -4,11 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Maths_For_Games_Assessment
+namespace MathsForGamesAssessment
 {
     public class Actor
     {
-        protected char _icon = ' ';
         protected Color _rayColor;
 
         protected Actor _parent;
@@ -23,7 +22,10 @@ namespace Maths_For_Games_Assessment
         protected Matrix4 _rotation = new Matrix4();
         protected Matrix4 _scale = new Matrix4();
 
-        private float _collRadius = .5f;
+        protected float _collRadius = 0.5f;
+
+        protected float _health = 10;
+        protected float _damage = 1;
 
         public bool Started { get; private set; } //Started property
 
@@ -35,14 +37,13 @@ namespace Maths_For_Games_Assessment
 
         public Vector3 LocalPosition
         {
-            get { return new Vector3(_localTransform.m13, _localTransform.m23, _localTransform.m33); ; }
+            get { return new Vector3(_localTransform.m14, _localTransform.m24, _localTransform.m34); }
             set { SetTranslate(value); }
         } //Position property
 
         public Vector3 GlobalPosition
         {
-            get { return new Vector3(_globalTransform.m13, _globalTransform.m23, _globalTransform.m33); }
-            set { _translation.m13 = value.X; _translation.m23 = value.Y; _translation.m33 = value.Z; }
+            get { return new Vector3(_globalTransform.m14, _globalTransform.m24, _globalTransform.m34); }
         } //Position property
 
         public Vector3 Velocity
@@ -95,22 +96,21 @@ namespace Maths_For_Games_Assessment
         /// <param name="y">Position on the y axis</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
         /// <param name="color">The color of the symbol that will appear when drawn</param>
-        public Actor(float y, float x, float z, char icon = ' ')
+        public Actor(float x, float y, float z)
         {
             _rayColor = Color.WHITE;
-            _icon = icon;
             _localTransform = new Matrix4();
             LocalPosition = new Vector3(x, y, z);
             Velocity = new Vector3();
-            //Forward = new Vector3(1, 0);
+            Forward = new Vector3(1, 0, 0);
         } //Actor Constructor
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
         /// <param name="rayColor">The color of the symbol that will appear when drawn to raylib</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
-        public Actor(float x, float y, float z, Color rayColor, char icon = ' ')
-            : this((char)x, y, z, icon)
+        public Actor(float x, float y, float z, Color rayColor)
+            : this((char)x, y, z)
         {
             _rayColor = rayColor;
         } //Overload Constructor with Raylib
@@ -122,6 +122,7 @@ namespace Maths_For_Games_Assessment
 
         public virtual void Update(float deltaTime)
         {
+            UpdateFacing();
 
             UpdateLocalTransform();
             UpdateGlobalTransform();
@@ -132,15 +133,7 @@ namespace Maths_For_Games_Assessment
 
         public virtual void Draw()
         {
-            //Draws the actor and a line indicating it facing to the raylib window.
-            //Scaled to match console movement
-            Raylib.DrawText(_icon.ToString(), (int)(GlobalPosition.X * 32), (int)(GlobalPosition.Y * 32), 32, _rayColor);
-            Raylib.DrawLine(
-                (int)(GlobalPosition.X * 32),
-                (int)(GlobalPosition.Y * 32),
-                (int)((GlobalPosition.X + Forward.X) * 32),
-                (int)((GlobalPosition.Y + Forward.Y) * 32),
-                Color.WHITE);
+            Raylib.DrawCylinder(new System.Numerics.Vector3(GlobalPosition.X, GlobalPosition.Y, GlobalPosition.Z), _collRadius, _collRadius, _collRadius * 2, 100, Color.DARKBLUE);
         } //Draw
 
         public virtual void End()
@@ -205,5 +198,23 @@ namespace Maths_For_Games_Assessment
             else
                 _globalTransform = Game.GetCurrentScene().World * _localTransform;
         } //Update Global Transform
+
+        private void UpdateFacing()
+        {
+            //If the actor hasn't moved, then don't change the direction
+            if (Velocity.Magnitude <= 0)
+                return;
+            Forward = Velocity.Normalized;
+        } //Update Facing function
+
+        public void DealDamage(Actor actor)
+        {
+            actor.TakeDamage(_damage);
+        } //Deal Damage function
+
+        public void TakeDamage(float damage)
+        {
+            _health -= damage;
+        } //Take Damage function
     } //Actor
 } //Maths For Games Assessment

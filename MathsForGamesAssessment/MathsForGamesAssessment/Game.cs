@@ -3,19 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Maths_For_Games_Assessment
+namespace MathsForGamesAssessment
 {
     class Game
     {
-        private static bool _gameOver = false;
         private static Scene[] _scenes;
         private static int _currentSceneIndex;
+        private Camera3D _camera = new Camera3D();
 
         public static int CurrentSceneIndex
         { get { return _currentSceneIndex; } }
-
-        public static bool SetGameOver
-        { set { _gameOver = value; } }
 
         public static Scene GetScene(int index)
         {
@@ -30,6 +27,8 @@ namespace Maths_For_Games_Assessment
             return _scenes[_currentSceneIndex];
         } //Get Current Scene function
 
+        public static Scene GetScenes(int index)
+        { return _scenes[index]; }
 
         /// <summary>
         /// Adds a Scene to the _scenes array
@@ -92,6 +91,24 @@ namespace Maths_For_Games_Assessment
         } //Remove Scene by scene function
 
         /// <summary>
+        /// Sets the current scene in the game to be the scene at the given index
+        /// </summary>
+        /// <param name="index">The index of the scene to switch to</param>
+        public static void SetCurrentScene(int index)
+        {
+            //If the index is not within the range of the the array return
+            if (index < 0 || index >= _scenes.Length)
+                return;
+
+            //Call end for the previous scene before changing to the new one
+            if (_scenes[_currentSceneIndex].Started)
+                _scenes[_currentSceneIndex].End();
+
+            //Update the current scene index
+            _currentSceneIndex = index;
+        } //Set Current Scene
+
+        /// <summary>
         /// Returns true while the KeyboardKey with the passed in ASCII value is being pressed
         /// </summary>
         /// <param name="key">The ASCII value of the key to check</param>
@@ -125,18 +142,47 @@ namespace Maths_For_Games_Assessment
             Console.CursorVisible = false;
             Console.Title = "Maths For Games Assessment";
 
+            _camera.position = new System.Numerics.Vector3(0.0f, 10.0f, 10.0f);
+            _camera.target = new System.Numerics.Vector3(0.0f, 0.0f, 0.0f);
+            _camera.up = new System.Numerics.Vector3(0.0f, 1.0f, 0.0f);
+            _camera.fovy = 45.0f;
+            _camera.type = CameraType.CAMERA_PERSPECTIVE;
+
             Scene scene1 = new Scene();
             Scene scene2 = new Scene();
+
+            Player player = new Player(0, 0, 0);
+            Actor actor = new Actor(0, 0, 0);
+
+            int startingSceneIndex = AddScene(scene1);
+            AddScene(scene2);
+
+            scene1.AddActor(player);
+
+            SetCurrentScene(startingSceneIndex);
         } //Start
 
-        public void Update()
+        public void Update(float deltaTime)
         {
+            if (!_scenes[_currentSceneIndex].Started)
+                _scenes[_currentSceneIndex].Start();
 
+            GameManager.CheckWin();
+
+            _scenes[_currentSceneIndex].Update(deltaTime);
         } //Update
 
         public void Draw()
         {
+            Raylib.BeginDrawing();
+            Raylib.BeginMode3D(_camera);
+            Raylib.ClearBackground(Color.DARKGRAY);
 
+            Raylib.DrawGrid(24, 0.75f);
+            _scenes[CurrentSceneIndex].Draw();
+
+            Raylib.EndMode3D();
+            Raylib.EndDrawing();
         } //Draw
 
         public void End()
@@ -148,11 +194,16 @@ namespace Maths_For_Games_Assessment
         {
             Start();
 
-            while (!_gameOver)
+            while (!GameManager.GameOver && !Raylib.WindowShouldClose())
             {
-                Update();
+                float deltaTime = Raylib.GetFrameTime();
+
+                Update(deltaTime);
                 Draw();
-            }
+
+                while (Console.KeyAvailable)
+                    Console.ReadKey(true);
+            } //While game isn't over and Raylib window shouldn't close
 
             End();
         } //Run
