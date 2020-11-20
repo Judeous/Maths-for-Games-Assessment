@@ -56,11 +56,8 @@ namespace MathsForGamesAssessment
                 Speed -= 1;
 
             //Set the actors current velocity to be the a vector with the direction found scaled by the speed
-            Velocity = new Vector3(xDirection, yDirection, zDirection);
-            Velocity = Velocity.Normalized * Speed;
+            Acceleration = new Vector3(xDirection, yDirection, zDirection);
 
-            if (Velocity.Magnitude <= 0)
-                return;
             Forward = Velocity.Normalized;
 
             base.Update(deltaTime);

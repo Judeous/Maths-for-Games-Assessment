@@ -40,12 +40,13 @@ namespace MathsForGamesAssessment
 
         public override void OnCollision(Actor actor)
         {
-            if (actor !is Projectile)
+            if (!(actor is Projectile))
             {
+                //Removes itself after calling TakeDamage on the collided-with actor
                 actor.TakeDamage(_damage);
                 Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
                 scene.RemoveActor(this);
-            }
+            } //If actor isn't a Projectile
         } //Collide override
     } //Projectile
 } //Maths For Games Assessment

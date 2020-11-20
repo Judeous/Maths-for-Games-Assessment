@@ -33,3 +33,10 @@ C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessm
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.dll
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.pdb
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.genruntimeconfig.cache
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\Raylib-cs.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libraylib.so
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\runtimes\linux-x86\native\libraylib.so
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libraylib.dylib
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\raylib.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\raylib.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csproj.CoreCompileInputs.cache

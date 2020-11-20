@@ -13,7 +13,9 @@ namespace MathsForGamesAssessment
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
 
-        protected Vector3 _velocity;
+        private Vector3 _velocity = new Vector3();
+        private Vector3 acceleration = new Vector3();
+        private float _maxSpeed = 10;
 
         protected Matrix4 _localTransform = new Matrix4();
         protected Matrix4 _globalTransform = new Matrix4();
@@ -51,6 +53,9 @@ namespace MathsForGamesAssessment
             get { return _velocity; }
             set { _velocity = value; }
         } //Velocity property
+
+        public Vector3 Acceleration { get => acceleration; set => acceleration = value; }
+        public float MaxSpeed { get => _maxSpeed; set => _maxSpeed = value; }
 
         public void AddChild(Actor child)
         {
@@ -127,6 +132,17 @@ namespace MathsForGamesAssessment
             UpdateLocalTransform();
             UpdateGlobalTransform();
 
+            if (Velocity.Magnitude != 0)
+            {
+                Velocity.X -= Velocity.X / 5;
+                Velocity.Y -= Velocity.Y / 5;
+                Velocity.Z -= Velocity.Z / 5;
+            }
+
+            Velocity += Acceleration;
+            if (Velocity.Magnitude > MaxSpeed)
+                Velocity = Velocity.Normalized * MaxSpeed;
+
             //Increase position by the current velocity
             LocalPosition += Velocity * deltaTime;
         } //Update
@@ -201,9 +217,6 @@ namespace MathsForGamesAssessment
 
         private void UpdateFacing()
         {
-            //If the actor hasn't moved, then don't change the direction
-            if (Velocity.Magnitude <= 0)
-                return;
             Forward = Velocity.Normalized;
         } //Update Facing function
 
