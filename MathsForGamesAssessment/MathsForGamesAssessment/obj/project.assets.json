@@ -147,19 +147,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\s208056\\.nuget\\packages\\": {}
+    "C:\\Users\\Jude\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s208056\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\MathsForGamesAssessment.csproj",
+      "projectUniqueName": "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\MathsForGamesAssessment.csproj",
       "projectName": "MathsForGamesAssessment",
-      "projectPath": "C:\\Users\\s208056\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\MathsForGamesAssessment.csproj",
-      "packagesPath": "C:\\Users\\s208056\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s208056\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\obj\\",
+      "projectPath": "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\MathsForGamesAssessment.csproj",
+      "packagesPath": "C:\\Users\\Jude\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathsForGamesAssessment\\MathsForGamesAssessment\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\s208056\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jude\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -172,8 +172,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\s208056\\Documents\\Projects\\Maths-for-Games-Assessment\\MathLibrary\\MathLibrary.csproj": {
-              "projectPath": "C:\\Users\\s208056\\Documents\\Projects\\Maths-for-Games-Assessment\\MathLibrary\\MathLibrary.csproj"
+            "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathLibrary\\MathLibrary.csproj": {
+              "projectPath": "C:\\Users\\Jude\\Documents\\Projects\\Maths-for-Games-Assessment\\MathLibrary\\MathLibrary.csproj"
             }
           }
         }
@@ -207,7 +207,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

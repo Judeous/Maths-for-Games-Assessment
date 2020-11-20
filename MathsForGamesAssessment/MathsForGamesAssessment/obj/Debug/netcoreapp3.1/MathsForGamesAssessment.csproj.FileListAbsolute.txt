@@ -2,7 +2,6 @@ C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessm
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csprojAssemblyReference.cache
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.AssemblyInfoInputs.cache
 C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.AssemblyInfo.cs
-C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csproj.CoreCompileInputs.cache
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.exe
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.deps.json
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.runtimeconfig.json
@@ -23,3 +22,14 @@ C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAsse
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csproj.CopyComplete
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.dll
 C:\Users\s208056\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.pdb
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.deps.json
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.runtimeconfig.json
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.runtimeconfig.dev.json
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathsForGamesAssessment.pdb
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathLibrary.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\bin\Debug\netcoreapp3.1\MathLibrary.pdb
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.csproj.CopyComplete
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.dll
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.pdb
+C:\Users\Jude\Documents\Projects\Maths-for-Games-Assessment\MathsForGamesAssessment\MathsForGamesAssessment\obj\Debug\netcoreapp3.1\MathsForGamesAssessment.genruntimeconfig.cache
