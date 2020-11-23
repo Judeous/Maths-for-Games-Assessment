@@ -8,25 +8,35 @@ namespace MathsForGamesAssessment
 {
     class Projectile : Actor
     {
-        protected Vector3 _direction;
+        protected Vector2 _direction;
         protected float _speed;
-        protected int _duration = 0;
-        protected int _timeSinceCreation = 0;
+        protected float _duration = 0;
+        protected float _timeSinceCreation = 0;
 
-        public Projectile(float x, float y, float z, Vector3 direction, float health, float damage = 5, float speed = 20, int duration = 20)
-            : base(x, y, z)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position">Where the Projectile will start</param>
+        /// <param name="direction">The direction the Projectile will move</param>
+        /// <param name="damage">The damage the Projectile will deal to the Actor it collides with</param>
+        /// <param name="speed">How fast the Projectile will move</param>
+        /// <param name="duration">How long the Projectile will last before dissapearing</param>
+        /// <param name="health">How many Actors the Projectile can hit before dissapearing</param>
+        public Projectile(Vector2 position, Vector2 direction, float damage, Sprite sprite, float speed = 10, int duration = 10, float health = 1)
+            : base(position.X, position.Y)
         {
             _direction = direction;
-            _health = health;
             _damage = damage;
+            _sprite = sprite;
             _rayColor = Color.SKYBLUE;
             _speed = speed;
             _duration = duration;
+            _health = health;
         } //Overload Constructor
 
         public override void Update(float deltaTime)
         {
-            _timeSinceCreation++;
+            _timeSinceCreation += deltaTime;
 
             if (_timeSinceCreation >= _duration)
             {
@@ -45,7 +55,7 @@ namespace MathsForGamesAssessment
                 //Removes itself after calling TakeDamage on the collided-with actor
                 actor.TakeDamage(_damage);
                 Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-                scene.RemoveActor(this);
+                TakeDamage(1);
             } //If actor isn't a Projectile
         } //Collide override
     } //Projectile

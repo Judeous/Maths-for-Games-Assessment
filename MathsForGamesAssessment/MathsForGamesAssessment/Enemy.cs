@@ -6,8 +6,8 @@ namespace MathsForGamesAssessment
 {
     class Enemy : Actor
     {
-        public Enemy(float y, float x, float z)
-            : base(x, y, z)
+        public Enemy(float y, float x)
+            : base(x, y)
         { } //Constructor
 
         public override void Start()

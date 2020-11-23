@@ -9,20 +9,21 @@ namespace MathsForGamesAssessment
     public class Actor
     {
         protected Color _rayColor;
+        protected Sprite _sprite;
 
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
 
-        private Vector3 _velocity = new Vector3();
-        private Vector3 acceleration = new Vector3();
-        private float _maxSpeed = 10;
+        private Vector2 _velocity = new Vector2();
+        private Vector2 acceleration = new Vector2();
+        private float _maxSpeed = 20;
 
-        protected Matrix4 _localTransform = new Matrix4();
-        protected Matrix4 _globalTransform = new Matrix4();
+        protected Matrix3 _localTransform = new Matrix3();
+        protected Matrix3 _globalTransform = new Matrix3();
         //Pieces of _transform matrix
-        protected Matrix4 _translation = new Matrix4();
-        protected Matrix4 _rotation = new Matrix4();
-        protected Matrix4 _scale = new Matrix4();
+        protected Matrix3 _translation = new Matrix3();
+        protected Matrix3 _rotation = new Matrix3();
+        protected Matrix3 _scale = new Matrix3();
 
         protected float _collRadius = 0.5f;
 
@@ -31,30 +32,30 @@ namespace MathsForGamesAssessment
 
         public bool Started { get; private set; } //Started property
 
-        public Vector3 Forward
+        public Vector2 Forward
         {
-            get { return new Vector3(_globalTransform.m11, _globalTransform.m21, _globalTransform.m31); }
-            set { _globalTransform.m11 = value.X; _globalTransform.m21 = value.Y; _globalTransform.m31 = value.Z; }
+            get { return new Vector2(_globalTransform.m11, _globalTransform.m21); }
+            set { _globalTransform.m11 = value.X; _globalTransform.m21 = value.Y; }
         } //Forward property
 
-        public Vector3 LocalPosition
+        public Vector2 LocalPosition
         {
-            get { return new Vector3(_localTransform.m14, _localTransform.m24, _localTransform.m34); }
+            get { return new Vector2(_localTransform.m13, _localTransform.m23); }
             set { SetTranslate(value); }
         } //Position property
 
-        public Vector3 GlobalPosition
+        public Vector2 GlobalPosition
         {
-            get { return new Vector3(_globalTransform.m14, _globalTransform.m24, _globalTransform.m34); }
+            get { return new Vector2(_globalTransform.m13, _globalTransform.m23); }
         } //Position property
 
-        public Vector3 Velocity
+        public Vector2 Velocity
         {
             get { return _velocity; }
             set { _velocity = value; }
         } //Velocity property
 
-        public Vector3 Acceleration { get => acceleration; set => acceleration = value; }
+        public Vector2 Acceleration { get => acceleration; set => acceleration = value; }
         public float MaxSpeed { get => _maxSpeed; set => _maxSpeed = value; }
 
         public void AddChild(Actor child)
@@ -101,24 +102,24 @@ namespace MathsForGamesAssessment
         /// <param name="y">Position on the y axis</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
         /// <param name="color">The color of the symbol that will appear when drawn</param>
-        public Actor(float x, float y, float z)
+        public Actor(float x, float y)
         {
             _rayColor = Color.WHITE;
-            _localTransform = new Matrix4();
-            LocalPosition = new Vector3(x, y, z);
-            Velocity = new Vector3();
-            Forward = new Vector3(1, 0, 0);
+            _localTransform = new Matrix3();
+            LocalPosition = new Vector2(x, y);
+            Velocity = new Vector2();
+            Forward = new Vector2(1, 0);
         } //Actor Constructor
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
         /// <param name="rayColor">The color of the symbol that will appear when drawn to raylib</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
-        public Actor(float x, float y, float z, Color rayColor)
-            : this((char)x, y, z)
+        public Actor(float x, float y, Sprite sprite)
+            : this((char)x, y)
         {
-            _rayColor = rayColor;
-        } //Overload Constructor with Raylib
+            sprite = _sprite;
+        } //Overload Constructor with Sprite
 
         public virtual void Start()
         {
@@ -127,6 +128,10 @@ namespace MathsForGamesAssessment
 
         public virtual void Update(float deltaTime)
         {
+            if (_health <= 0)
+            {
+                
+            }
             UpdateFacing();
 
             UpdateLocalTransform();
@@ -136,7 +141,6 @@ namespace MathsForGamesAssessment
             {
                 Velocity.X -= Velocity.X / 5;
                 Velocity.Y -= Velocity.Y / 5;
-                Velocity.Z -= Velocity.Z / 5;
             }
 
             Velocity += Acceleration;
@@ -149,7 +153,9 @@ namespace MathsForGamesAssessment
 
         public virtual void Draw()
         {
-            Raylib.DrawCylinder(new System.Numerics.Vector3(GlobalPosition.X, GlobalPosition.Y, GlobalPosition.Z), _collRadius, _collRadius, _collRadius * 2, 100, Color.DARKBLUE);
+            //If Actor has a Sprite, draw it
+            if (_sprite != null)
+                _sprite.Draw(_globalTransform);
         } //Draw
 
         public virtual void End()
@@ -173,33 +179,23 @@ namespace MathsForGamesAssessment
 
         public virtual void OnCollision(Actor actor)
         {
-            Vector3 direction = actor.GlobalPosition - GlobalPosition;
+            Vector2 direction = actor.GlobalPosition - GlobalPosition;
             actor.SetTranslate(actor.LocalPosition + direction.Normalized);
         } //On Collision function
 
-        public void SetTranslate(Vector3 position)
+        public void SetTranslate(Vector2 position)
         {
-            _translation = Matrix4.CreateTranslation(position);
+            _translation = Matrix3.CreateTranslation(position);
         } //Set Translate function
 
-        public void SetRotationX(float radians)
+        public void SetRotation(float radians)
         {
-            _rotation = Matrix4.CreateRotationX(radians);
+            _rotation = Matrix3.CreateRotation(radians);
         } //Set Rotation function
 
-        public void SetRotationY(float radians)
+        public void SetScale(float x, float y)
         {
-            _rotation = Matrix4.CreateRotationY(radians);
-        } //Set Rotation function
-
-        public void SetRotationZ(float radians)
-        {
-            _rotation = Matrix4.CreateRotationZ(radians);
-        } //Set Rotation function
-
-        public void SetScale(float x, float y, float z)
-        {
-            _scale = Matrix4.CreateScale(x, y, z);
+            _scale = Matrix3.CreateScale(x, y);
         } //Set Scale function
 
         public void UpdateLocalTransform()
@@ -215,9 +211,10 @@ namespace MathsForGamesAssessment
                 _globalTransform = Game.GetCurrentScene().World * _localTransform;
         } //Update Global Transform
 
-        private void UpdateFacing()
+        virtual public void UpdateFacing()
         {
-            Forward = Velocity.Normalized;
+            if (Velocity.Magnitude != 0)
+                SetRotation(-(float)Math.Atan2(Velocity.Y, Velocity.X));
         } //Update Facing function
 
         public void DealDamage(Actor actor)

@@ -7,11 +7,11 @@ namespace MathsForGamesAssessment
 {
     public class Scene
     {
-        private Matrix4 _transform = new Matrix4();
+        private Matrix3 _transform = new Matrix3();
         private Actor[] _actors;
 
         public bool Started { get; private set; }
-        public Matrix4 World { get { return _transform; } }
+        public Matrix3 World { get { return _transform; } }
 
         public Scene()
         { _actors = new Actor[0]; }
@@ -148,9 +148,9 @@ namespace MathsForGamesAssessment
             for (int i = 0; i < _actors.Length - 1; i++)
             { //For every Actor
                 for (int j = 0; j < _actors.Length; j++)
-                { //Also for every Actor
+                { //For every other Actor
                     _actors[i].CheckCollision(_actors[j]);
-                } //For every Actor
+                } //For every other Actor
             } //For every Actor
         } //Check Collisions function
 

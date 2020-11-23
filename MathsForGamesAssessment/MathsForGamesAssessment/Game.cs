@@ -9,7 +9,6 @@ namespace MathsForGamesAssessment
     {
         private static Scene[] _scenes;
         private static int _currentSceneIndex;
-        private Camera3D _camera = new Camera3D();
 
         public static int CurrentSceneIndex
         { get { return _currentSceneIndex; } }
@@ -142,22 +141,17 @@ namespace MathsForGamesAssessment
             Console.CursorVisible = false;
             Console.Title = "Maths For Games Assessment";
 
-            _camera.position = new System.Numerics.Vector3(0.0f, 10.0f, 10.0f);
-            _camera.target = new System.Numerics.Vector3(0.0f, 0.0f, 0.0f);
-            _camera.up = new System.Numerics.Vector3(0.0f, 1.0f, 0.0f);
-            _camera.fovy = 45.0f;
-            _camera.type = CameraType.CAMERA_PERSPECTIVE;
-
             Scene scene1 = new Scene();
             Scene scene2 = new Scene();
 
-            Player player = new Player(0, 0, 0);
-            Actor actor = new Actor(0, 0, 0);
+            Player player = new Player(0, 0);
+            Actor actor = new Actor(0, 0);
 
             int startingSceneIndex = AddScene(scene1);
             AddScene(scene2);
 
             scene1.AddActor(player);
+            scene1.AddActor(actor);
 
             SetCurrentScene(startingSceneIndex);
         } //Start
@@ -175,13 +169,10 @@ namespace MathsForGamesAssessment
         public void Draw()
         {
             Raylib.BeginDrawing();
-            Raylib.BeginMode3D(_camera);
             Raylib.ClearBackground(Color.DARKGRAY);
 
-            Raylib.DrawGrid(24, 0.75f);
             _scenes[CurrentSceneIndex].Draw();
 
-            Raylib.EndMode3D();
             Raylib.EndDrawing();
         } //Draw
 
