@@ -12,8 +12,10 @@ namespace MathsForGamesAssessment
         private float _fireCoolDown = 0.5f;
         private float _timeSinceFire = 0;
         private bool _inCoolDown = false;
+        private float _rotate;
+        private Sprite _projectileSprite = new Sprite("Images/Screenshot 2020-11-23 124849.png");
 
-        private char _facingType = 'm';
+        private char _facingType = 'c';
 
         public float Speed
         {
@@ -23,13 +25,17 @@ namespace MathsForGamesAssessment
 
         public Player(float y, float x)
             : base(x, y)
-        {
-            _sprite = new Sprite("Images/PNG/Survivor 1/survivor1_stand.png");
-        } //Constructor
+        { } //Constructor
 
         public override void Start()
         {
             //GameManager.onWin += DrawWinText;
+            _sprite[0] = new Sprite("Images/PNG/Survivor 1/survivor1_gun.png");
+            _sprite[1] = new Sprite("Images/PNG/Survivor 1/survivor1_hold.png");
+            _sprite[2] = new Sprite("Images/PNG/Survivor 1/survivor1_machine.png");
+            _sprite[3] = new Sprite("Images/PNG/Survivor 1/survivor1_reload.png");
+            _sprite[4] = new Sprite("Images/PNG/Survivor 1/survivor1_silencer.png");
+            _sprite[5] = new Sprite("Images/PNG/Survivor 1/survivor1_stand.png");
             base.Start();
         }
 
@@ -45,71 +51,47 @@ namespace MathsForGamesAssessment
             if (_timeSinceFire >= _fireCoolDown)
             {
                 _inCoolDown = false;
-                _sprite = new Sprite("Images/PNG/Survivor 1/survivor1_stand.png");
+                _currentSprite = _sprite[5];
             }
             else
                 _inCoolDown = true;
 
-            if (Game.GetKeyDown((int)KeyboardKey.KEY_DOWN) && _scale.m11 - 1 > 0)
-            {
-                SetScale(_scale.m11 - 1, _scale.m22 - 1);
-                _collRadius -= 0.5f;
-            } //If scaling down
 
             if (Game.GetKeyDown((int)KeyboardKey.KEY_SPACE) && !_inCoolDown)
             {
-                _sprite = new Sprite("Images/PNG/Survivor 1/survivor1_hold.png");
-                Sprite sprite = new Sprite("Images/Screenshot 2020-11-23 124849.png");
-                Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-                Projectile projectile = new Projectile(GlobalPosition+Forward, Forward, _damage, sprite);
-                scene.AddActor(projectile);
+                _currentSprite = _sprite[1];
+
+                Projectile projectile = new Projectile(GlobalPosition+Forward, Forward, _damage, _projectileSprite);
+                CreateProjectile(projectile);
                 _timeSinceFire = 0;
             } //If can and are firing a projectile
 
             Acceleration = new Vector2(xDirection, yDirection);
-
-            if (Acceleration.Magnitude > 0)
-                Forward = Acceleration.Normalized;
 
             base.Update(deltaTime);
         } //Update override
 
         public override void UpdateFacing()
         {
-            switch(_facingType)
+            switch (_facingType)
             {
-                case 'm': //Case Mouse
-                    SetRotation((float)Math.Atan2((GlobalPosition.X - Raylib.GetMousePosition().X), (GlobalPosition.Y -  Raylib.GetMousePosition().Y)));
-
-                    //SetRotation((float)Math.Atan2(Raylib.GetMousePosition().Y, Raylib.GetMousePosition().X));
-
-                    //if (Raylib.GetMousePosition().X >= GlobalPosition.X && Raylib.GetMousePosition().Y >= GlobalPosition.Y)
-                    //{
-                    //    SetRotation((float)Math.Atan2(-Raylib.GetMousePosition().X, -Raylib.GetMousePosition().Y));
-
-                    //}
-                    //else if (Raylib.GetMousePosition().X < GlobalPosition.X && Raylib.GetMousePosition().Y >= GlobalPosition.Y)
-                    //{
-                    //    SetRotation((float)Math.Atan2(Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y));
-
-                    //}
-                    //else if (Raylib.GetMousePosition().X >= GlobalPosition.X && Raylib.GetMousePosition().Y < GlobalPosition.Y)
-                    //{
-                    //    SetRotation((float)Math.Atan2(-Raylib.GetMousePosition().X, Raylib.GetMousePosition().Y));
-
-                    //}
-                    //else
-                    //{
-                    //    SetRotation((float)Math.Atan2(Raylib.GetMousePosition().X, -Raylib.GetMousePosition().Y));
-
-                    //}
+                case 'c': //Case Cursor
+                    LookAt(new Vector2(Raylib.GetMousePosition().X / 32, Raylib.GetMousePosition().Y / 32));
                     break;
 
                 case 'a': //Case Arrows
+                    if (Game.GetKeyDown((int)KeyboardKey.KEY_LEFT))
+                        SetRotation(_rotate += .2f);
+
+                    if (Game.GetKeyDown((int)KeyboardKey.KEY_RIGHT))
+                        SetRotation(_rotate -= .2f);
+                    break;
+
+                case 'm': //Case Movement
                     base.UpdateFacing();
                     break;
-            }
-        }
+            } //Facing Type switch
+        } //Update Facing function
 
         public void DrawWinText()
         {

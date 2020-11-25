@@ -9,7 +9,8 @@ namespace MathsForGamesAssessment
     public class Actor
     {
         protected Color _rayColor;
-        protected Sprite _sprite;
+        protected Sprite _currentSprite;
+        protected Sprite[] _sprite = new Sprite[6];
 
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
@@ -35,7 +36,7 @@ namespace MathsForGamesAssessment
         public Vector2 Forward
         {
             get { return new Vector2(_globalTransform.m11, _globalTransform.m21); }
-            set { _globalTransform.m11 = value.X; _globalTransform.m21 = value.Y; }
+            set { LookAt(value.Normalized + GlobalPosition); }
         } //Forward property
 
         public Vector2 LocalPosition
@@ -118,7 +119,7 @@ namespace MathsForGamesAssessment
         public Actor(float x, float y, Sprite sprite)
             : this((char)x, y)
         {
-            sprite = _sprite;
+            sprite = _currentSprite;
         } //Overload Constructor with Sprite
 
         public virtual void Start()
@@ -128,10 +129,12 @@ namespace MathsForGamesAssessment
 
         public virtual void Update(float deltaTime)
         {
-            if (_health <= 0)
-            {
-                
-            }
+            //if (_health <= 0)
+            //{
+            //    Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
+            //    scene.RemoveActor(this);
+            //}
+
             UpdateFacing();
 
             UpdateLocalTransform();
@@ -154,8 +157,8 @@ namespace MathsForGamesAssessment
         public virtual void Draw()
         {
             //If Actor has a Sprite, draw it
-            if (_sprite != null)
-                _sprite.Draw(_globalTransform);
+            if (_currentSprite != null)
+                _currentSprite.Draw(_globalTransform);
         } //Draw
 
         public virtual void End()
@@ -193,6 +196,11 @@ namespace MathsForGamesAssessment
             _rotation = Matrix3.CreateRotation(radians);
         } //Set Rotation function
 
+        public void Rotate(float radians)
+        {
+            _rotation *= Matrix3.CreateRotation(radians);
+        }
+
         public void SetScale(float x, float y)
         {
             _scale = Matrix3.CreateScale(x, y);
@@ -214,8 +222,17 @@ namespace MathsForGamesAssessment
         virtual public void UpdateFacing()
         {
             if (Velocity.Magnitude != 0)
-                SetRotation(-(float)Math.Atan2(Velocity.Y, Velocity.X));
+                Forward = Velocity;
         } //Update Facing function
+
+        public void LookAt(Vector2 position)
+        {
+            Vector2 direction = (position - GlobalPosition).Normalized;
+
+            float angle = Vector2.FindAngle(Forward, direction);
+
+            Rotate(-angle);
+        } //Look At function
 
         public void DealDamage(Actor actor)
         {
@@ -226,5 +243,11 @@ namespace MathsForGamesAssessment
         {
             _health -= damage;
         } //Take Damage function
+
+        public void CreateProjectile(Projectile projectile)
+        {
+            Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
+            scene.AddActor(projectile);
+        } //Create Projectile function
     } //Actor
 } //Maths For Games Assessment

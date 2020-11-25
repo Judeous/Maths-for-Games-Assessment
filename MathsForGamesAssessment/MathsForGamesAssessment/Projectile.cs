@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MathsForGamesAssessment
 {
-    class Projectile : Actor
+    public class Projectile : Actor
     {
         protected Vector2 _direction;
         protected float _speed;
@@ -27,7 +27,7 @@ namespace MathsForGamesAssessment
         {
             _direction = direction;
             _damage = damage;
-            _sprite = sprite;
+            _currentSprite = sprite;
             _rayColor = Color.SKYBLUE;
             _speed = speed;
             _duration = duration;
@@ -50,13 +50,9 @@ namespace MathsForGamesAssessment
 
         public override void OnCollision(Actor actor)
         {
-            if (!(actor is Projectile))
-            {
-                //Removes itself after calling TakeDamage on the collided-with actor
-                actor.TakeDamage(_damage);
-                Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-                TakeDamage(1);
-            } //If actor isn't a Projectile
+            //Removes itself after calling TakeDamage on the collided-with actor
+            actor.TakeDamage(_damage);
+            TakeDamage(1);
         } //Collide override
     } //Projectile
 } //Maths For Games Assessment

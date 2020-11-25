@@ -64,6 +64,28 @@ namespace MathLibrary
             return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
         } //Dot Product function
 
+        public static float FindAngle(Vector2 lhs, Vector2 rhs)
+        {
+            lhs = lhs.Normalized;
+            rhs = rhs.Normalized;
+
+            float dotProd = DotProduct(lhs, rhs);
+
+            if (Math.Abs(dotProd) > 1)
+                return 0;
+
+            float angle = (float)Math.Acos(dotProd);
+
+            Vector2 perp = new Vector2(rhs.Y, -rhs.X);
+
+            float perpDot = DotProduct(perp, lhs);
+
+            if (perpDot != 0)
+                angle *= perpDot / Math.Abs(perpDot);
+
+            return angle;
+        } //Find Angle function
+
         public static Vector2 operator +(Vector2 lhs, Vector2 rhs)
         {
             return new Vector2(lhs.X += rhs.X, lhs.Y += rhs.Y);
