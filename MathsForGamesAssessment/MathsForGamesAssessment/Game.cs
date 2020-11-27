@@ -143,15 +143,24 @@ namespace MathsForGamesAssessment
 
             Scene scene1 = new Scene();
             Scene scene2 = new Scene();
+            Scene scene3 = new Scene();
 
-            Player player = new Player(0, 0);
-            Actor actor = new Actor(0, 0);
+            Player player = new Player(1, 1);
+
+            Tile tile01 = new Tile(1, 1, new Sprite("Images/PNG/Tiles/tile_07.png"));
+            Tile tile02 = new Tile(2, 1, new Sprite("Images/PNG/Tiles/tile_09.png"));
+            Tile tile03 = new Tile(3, 1, new Sprite("Images/PNG/Tiles/tile_09.png"));
+
 
             int startingSceneIndex = AddScene(scene1);
             AddScene(scene2);
+            AddScene(scene3);
 
             scene1.AddActor(player);
-            scene1.AddActor(actor);
+
+            scene1.AddActor(tile01);
+            scene1.AddActor(tile02);
+            scene1.AddActor(tile03);
 
             SetCurrentScene(startingSceneIndex);
         } //Start

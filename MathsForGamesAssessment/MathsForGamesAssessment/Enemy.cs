@@ -10,22 +10,20 @@ namespace MathsForGamesAssessment
             : base(x, y)
         { } //Constructor
 
-        public Enemy(float x, float y, string name)
+        public Enemy(float x, float y, Sprite sprite)
             : base(x, y)
-        {
-
-        }
+        { } //Overload Constructor with Sprite
 
         public override void Start()
         {
             GameManager.enemyCount++;
             base.Start();
-        }
+        } //Start
 
         public override void End()
         {
             GameManager.enemyCount--;
             base.End();
-        }
+        } //End
     } //Enemy
 } //Actor

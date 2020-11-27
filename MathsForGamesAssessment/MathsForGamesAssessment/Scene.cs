@@ -61,7 +61,7 @@ namespace MathsForGamesAssessment
                     if (_actors[i].Started)
                         _actors[i].End();
                 }
-            }
+            } //For every Actor
 
             //Set the old array to be the tempArray
             _actors = newArray;

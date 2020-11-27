@@ -10,7 +10,7 @@ namespace MathsForGamesAssessment
     {
         protected Color _rayColor;
         protected Sprite _currentSprite;
-        protected Sprite[] _sprite = new Sprite[6];
+        protected Sprite[] _sprite = new Sprite[0];
 
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
@@ -98,6 +98,77 @@ namespace MathsForGamesAssessment
             child._parent = null;
             return childRemoved;
         } //Remove Child by Child function
+
+        public void AddSprite(Sprite sprite)
+        {
+            //Create a new array with a size one greater than our old array
+            Sprite[] appendedArray = new Sprite[_sprite.Length + 1];
+            //Copy the values from the old array to the new array
+            for (int i = 0; i < _sprite.Length; i++)
+            {
+                appendedArray[i] = _sprite[i];
+            }
+            //Set the last value in the new array to be the sprite we want to add
+            appendedArray[_sprite.Length] = sprite;
+            //Set old array to hold the values of the new array
+            _sprite = appendedArray;
+        } //Add Sprite function
+
+        public bool RemoveSprite(int index)
+        {
+            //Check to see if the index is outside the bounds of our array
+            if (index < 0 || index >= _sprite.Length)
+                return false;
+
+            bool spriteRemoved = false;
+
+            //Create a new array with a size one less than our old array 
+            Sprite[] newArray = new Sprite[_sprite.Length - 1];
+            //Create variable to access tempArray index
+            int j = 0;
+            //Copy values from the old array to the new array
+            for (int i = 0; i < _sprite.Length; i++)
+            {
+                //If the current index is not the index that needs to be removed,
+                //add the value into the old array and increment j
+                if (i != index)
+                {
+                    newArray[j] = _sprite[i];
+                    j++;
+                }
+            } //For every Sprite
+
+            //Set the old array to be the tempArray
+            _sprite = newArray;
+            return spriteRemoved;
+        } //Remove Sprite by index
+
+        public bool RemoveSprite(Sprite sprite)
+        {
+            //Check to see if the actor was null
+            if (sprite == null)
+                return false;
+
+            bool spriteRemoved = false;
+            //Create a new array with a size one less than our old array
+            Sprite[] newArray = new Sprite[_sprite.Length - 1];
+            //Create variable to access tempArray index
+            int j = 0;
+            //Copy values from the old array to the new array
+            for (int i = 0; i < _sprite.Length; i++)
+            {
+                if (sprite != _sprite[i])
+                {
+                    newArray[j] = _sprite[i];
+                    j++;
+                }
+            }
+
+            //Set the old array to the new array
+            _sprite = newArray;
+            //Return whether or not the removal was successful
+            return spriteRemoved;
+        } //Remove Sprite by Sprite
 
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>

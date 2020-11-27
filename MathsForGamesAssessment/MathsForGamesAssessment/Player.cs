@@ -30,14 +30,14 @@ namespace MathsForGamesAssessment
         public override void Start()
         {
             //GameManager.onWin += DrawWinText;
-            _sprite[0] = new Sprite("Images/PNG/Survivor 1/survivor1_gun.png");
-            _sprite[1] = new Sprite("Images/PNG/Survivor 1/survivor1_hold.png");
-            _sprite[2] = new Sprite("Images/PNG/Survivor 1/survivor1_machine.png");
-            _sprite[3] = new Sprite("Images/PNG/Survivor 1/survivor1_reload.png");
-            _sprite[4] = new Sprite("Images/PNG/Survivor 1/survivor1_silencer.png");
-            _sprite[5] = new Sprite("Images/PNG/Survivor 1/survivor1_stand.png");
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_gun.png"));
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_hold.png"));
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_machine.png"));
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_reload.png"));
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_silencer.png"));
+            AddSprite(new Sprite("Images/PNG/Survivor 1/survivor1_stand.png"));
             base.Start();
-        }
+        } //Start
 
         public override void Update(float deltaTime)
         {
@@ -55,7 +55,6 @@ namespace MathsForGamesAssessment
             }
             else
                 _inCoolDown = true;
-
 
             if (Game.GetKeyDown((int)KeyboardKey.KEY_SPACE) && !_inCoolDown)
             {
