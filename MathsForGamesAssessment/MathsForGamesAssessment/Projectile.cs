@@ -50,9 +50,17 @@ namespace MathsForGamesAssessment
 
         public override void OnCollision(Actor actor)
         {
-            //Removes itself after calling TakeDamage on the collided-with actor
-            actor.TakeDamage(_damage);
-            TakeDamage(1);
+            if(actor is Projectile)
+            {
+                Vector2 direction = actor.GlobalPosition - GlobalPosition;
+                actor.SetTranslate(actor.LocalPosition + direction.Normalized);
+            }
+            else
+            {
+                //Removes itself after calling TakeDamage on the collided-with actor
+                actor.TakeDamage(_damage);
+                TakeDamage(1);
+            }
         } //Collide override
     } //Projectile
 } //Maths For Games Assessment
