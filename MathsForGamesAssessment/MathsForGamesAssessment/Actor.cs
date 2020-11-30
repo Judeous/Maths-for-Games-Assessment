@@ -188,7 +188,7 @@ namespace MathsForGamesAssessment
         /// <param name="rayColor">The color of the symbol that will appear when drawn to raylib</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
         public Actor(float x, float y, Sprite sprite)
-            : this((char)x, y)
+            : this(x, y)
         {
             sprite = _currentSprite;
         } //Overload Constructor with Sprite
@@ -253,8 +253,11 @@ namespace MathsForGamesAssessment
 
         public virtual void OnCollision(Actor actor)
         {
-            Vector2 direction = actor.GlobalPosition - GlobalPosition;
-            actor.SetTranslate(actor.LocalPosition + direction.Normalized);
+            if (!(actor is Tile))
+            {
+                Vector2 direction = actor.GlobalPosition - GlobalPosition;
+                actor.SetTranslate(actor.LocalPosition + direction.Normalized);
+            } //If actor isn't Tile
         } //On Collision function
 
         public void SetTranslate(Vector2 position)
@@ -270,7 +273,7 @@ namespace MathsForGamesAssessment
         public void Rotate(float radians)
         {
             _rotation *= Matrix3.CreateRotation(radians);
-        }
+        } //Rotate function
 
         public void SetScale(float x, float y)
         {

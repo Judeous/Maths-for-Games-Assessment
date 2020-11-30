@@ -10,6 +10,11 @@ namespace MathsForGamesAssessment
         private static Scene[] _scenes;
         private static int _currentSceneIndex;
 
+        private int _worldHeight = 24;
+        private int _worldWidth = 33;
+
+
+
         public static int CurrentSceneIndex
         { get { return _currentSceneIndex; } }
 
@@ -147,20 +152,20 @@ namespace MathsForGamesAssessment
 
             Player player = new Player(1, 1);
 
-            Tile tile01 = new Tile(1, 1, new Sprite("Images/PNG/Tiles/tile_07.png"));
-            Tile tile02 = new Tile(2, 1, new Sprite("Images/PNG/Tiles/tile_09.png"));
-            Tile tile03 = new Tile(3, 1, new Sprite("Images/PNG/Tiles/tile_09.png"));
+            Tile[,] tiles = new Tile[_worldWidth, _worldHeight];
 
+            for (int i = 0; i < _worldWidth; i++)
+                for (int j = 0; j < _worldHeight; j++)
+                {
+                    tiles[i, j] = new Tile(i + .05f, j + 0.5f, RandomStoneSprite());
+                    scene1.AddActor(tiles[i, j]);
+                }
 
             int startingSceneIndex = AddScene(scene1);
             AddScene(scene2);
             AddScene(scene3);
 
             scene1.AddActor(player);
-
-            scene1.AddActor(tile01);
-            scene1.AddActor(tile02);
-            scene1.AddActor(tile03);
 
             SetCurrentScene(startingSceneIndex);
         } //Start
@@ -207,5 +212,38 @@ namespace MathsForGamesAssessment
 
             End();
         } //Run
+
+        public Sprite RandomStoneSprite()
+        {
+            Sprite sprite;
+
+            Random r = new Random();
+            int randInt = r.Next(7, 10);
+
+            switch (randInt)
+            {
+                case 7:
+                    sprite = new Sprite("Images/PNG/Tiles/tile_07.png");
+                    break;
+
+                case 8:
+                    sprite = new Sprite("Images/PNG/Tiles/tile_08.png");
+                    break;
+
+                case 9:
+                    sprite = new Sprite("Images/PNG/Tiles/tile_09.png");
+                    break;
+
+                case 10:
+                    sprite = new Sprite("Images/PNG/Tiles/tile_10.png");
+                    break;
+
+                default:
+                    sprite = new Sprite("Images/PNG/Tiles/tile_10.png");
+                    break;
+            } //randInt switch
+
+            return sprite;
+        } //Random Stone Sprite function
     } //Game
 } //Maths For Games Assessment

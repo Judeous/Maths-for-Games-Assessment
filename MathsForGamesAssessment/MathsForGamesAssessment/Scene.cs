@@ -123,9 +123,17 @@ namespace MathsForGamesAssessment
 
         public virtual void Draw()
         {
+            //Draw Tiles first
             for (int i = 0; i < _actors.Length; i++)
             {
-                _actors[i].Draw();
+                if (_actors[i] is Tile)
+                    _actors[i].Draw();
+            }
+            //Draw non-Tiles Second
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                if (!(_actors[i] is Tile))
+                    _actors[i].Draw();
             }
         } //Draw
 
@@ -153,6 +161,5 @@ namespace MathsForGamesAssessment
                 } //For every other Actor
             } //For every Actor
         } //Check Collisions function
-
     } //Scene
 } //Maths For Games Assessment
