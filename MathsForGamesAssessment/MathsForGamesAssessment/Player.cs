@@ -23,9 +23,11 @@ namespace MathsForGamesAssessment
             set { _speed = value; }
         } //Speed Property
 
-        public Player(float y, float x)
+        public Player(float y, float x, char facing)
             : base(x, y)
-        { } //Constructor
+        {
+            _facingType = facing;
+        } //Constructor
 
         public override void Start()
         {

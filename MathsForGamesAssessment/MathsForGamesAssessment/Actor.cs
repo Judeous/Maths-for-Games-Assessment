@@ -8,7 +8,6 @@ namespace MathsForGamesAssessment
 {
     public class Actor
     {
-        protected Color _rayColor;
         protected Sprite _currentSprite;
         protected Sprite[] _sprite = new Sprite[0];
 
@@ -176,7 +175,6 @@ namespace MathsForGamesAssessment
         /// <param name="color">The color of the symbol that will appear when drawn</param>
         public Actor(float x, float y)
         {
-            _rayColor = Color.WHITE;
             _localTransform = new Matrix3();
             LocalPosition = new Vector2(x, y);
             Velocity = new Vector2();
@@ -200,11 +198,13 @@ namespace MathsForGamesAssessment
 
         public virtual void Update(float deltaTime)
         {
-            //if (_health <= 0)
-            //{
-            //    Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-            //    scene.RemoveActor(this);
-            //}
+            if (_health <= 0)
+            {
+                Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
+                scene.RemoveActor(this);
+                End();
+                return;
+            } //If this Actor is dead
 
             UpdateFacing();
 
@@ -253,7 +253,7 @@ namespace MathsForGamesAssessment
 
         public virtual void OnCollision(Actor actor)
         {
-            if (!(actor is Tile))
+            if (!(actor is Tile) && !(actor is Projectile))
             {
                 Vector2 direction = actor.GlobalPosition - GlobalPosition;
                 actor.SetTranslate(actor.LocalPosition + direction.Normalized);

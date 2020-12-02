@@ -8,7 +8,9 @@ namespace MathsForGamesAssessment
     {
         public Tile(float x, float y)
             : base(x, y)
-        { } //Constructor
+        {
+            _damage = 0;
+        } //Constructor
 
         public Tile(float x, float y, Sprite sprite)
             : base(x, y)

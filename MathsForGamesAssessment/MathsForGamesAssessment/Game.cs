@@ -139,6 +139,9 @@ namespace MathsForGamesAssessment
 
         public void Start()
         {
+            char facing = GetPlayerMovementType();
+            Console.Clear();
+            DisplayControls(facing);
 
             Raylib.InitWindow(1024, 760, "Maths For Games Assessment");
             Raylib.SetTargetFPS(30);
@@ -150,7 +153,9 @@ namespace MathsForGamesAssessment
             Scene scene2 = new Scene();
             Scene scene3 = new Scene();
 
-            Player player = new Player(1, 1);
+            Player player = new Player(1, 1, facing);
+
+            Zombie zombie = new Zombie(10, 10, player);
 
             Tile[,] tiles = new Tile[_worldWidth, _worldHeight];
 
@@ -166,6 +171,7 @@ namespace MathsForGamesAssessment
             AddScene(scene3);
 
             scene1.AddActor(player);
+            scene1.AddActor(zombie);
 
             SetCurrentScene(startingSceneIndex);
         } //Start
@@ -245,5 +251,53 @@ namespace MathsForGamesAssessment
 
             return sprite;
         } //Random Stone Sprite function
+
+        public char GetPlayerMovementType()
+        {
+            Console.WriteLine("How would you like to change the direction of your Player?");
+            Console.WriteLine("1: Look where the cursor is (Recommended)\n2: Turn left using Left Arrow and turn right using Right Arrow \n3: Look where the Player is moving");
+
+            char facing;
+            do
+            {
+                facing = Console.ReadKey().KeyChar;
+            }
+            while (facing != '1' && facing != '2' && facing != '3');
+
+            switch (facing)
+            {
+                case '1': //Case cursor
+                    facing = 'c';
+                    break;
+
+                case '2': //Case arrows
+                    facing = 'a';
+                    break;
+
+                case '3': //Case movement
+                    facing = 'm';
+                    break;
+            } //facing switch
+            Console.Clear();
+            return facing;
+        } //Get Player Movement Type function
+
+        public void DisplayControls(char facingType)
+        {
+            Console.WriteLine("Controls:");
+            Console.WriteLine("Move Up:    W");
+            Console.WriteLine("Move Down:  S");
+            Console.WriteLine("Move Left:  A");
+            Console.WriteLine("Move Right: D");
+            Console.WriteLine("");
+            Console.WriteLine("Shoot Fireball: Space");
+            if(facingType == 'a')
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Turn Left:  Left Arrow");
+                Console.WriteLine("Turn Right: Right Arrow");
+            }
+            Console.ReadKey();
+        } //Display Controls function
     } //Game
 } //Maths For Games Assessment
