@@ -22,6 +22,8 @@ namespace MathsForGamesAssessment
 
             Target = target;
 
+            _health = 5;
+
             _currentSprite = _sprite[0];
         } //Overload Constructor with Sprite
 

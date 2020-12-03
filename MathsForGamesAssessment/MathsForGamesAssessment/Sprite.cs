@@ -69,5 +69,5 @@ namespace MathsForGamesAssessment
             Raylib.DrawTextureEx(_texture, pos * 32,
                 (float)(rotation * 180.0f / Math.PI), 32, Color.WHITE);
         } //Draw
-    }
-}
+    } //Sprite
+} //Maths For Games Assessment

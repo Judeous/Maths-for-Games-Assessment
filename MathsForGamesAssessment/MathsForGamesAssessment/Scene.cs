@@ -34,10 +34,8 @@ namespace MathsForGamesAssessment
         public bool RemoveActor(int index)
         {
             //Check to see if the index is outside the bounds of our array
-            if (index < 0 || index >= _actors.Length)
-            {
+            if (index < 0 || index >= _actors.Length || _actors.Length == 0)
                 return false;
-            }
 
             bool actorRemoved = false;
 
@@ -71,7 +69,7 @@ namespace MathsForGamesAssessment
         public bool RemoveActor(Actor actor)
         {
             //Check to see if the actor was null
-            if (actor == null)
+            if (actor == null || _actors.Length == 0)
             {
                 return false;
             }
@@ -86,8 +84,11 @@ namespace MathsForGamesAssessment
             {
                 if (actor != _actors[i])
                 {
-                    newArray[j] = _actors[i];
-                    j++;
+                    if (j < newArray.Length)
+                    {
+                        newArray[j] = _actors[i];
+                        j++;
+                    }
                 }
                 else
                 {

@@ -13,7 +13,8 @@ namespace MathsForGamesAssessment
         private float _timeSinceFire = 0;
         private bool _inCoolDown = false;
         private float _rotate;
-        private Sprite _projectileSprite = new Sprite("Images/Screenshot 2020-11-23 124849.png");
+        private readonly Sprite _fireBallSprite = new Sprite("Images/Screenshot 2020-11-23 124849.png");
+        private readonly Sprite _bushSprite = new Sprite("Images/BushProjectile.png");
 
         private char _facingType = 'c';
 
@@ -60,12 +61,13 @@ namespace MathsForGamesAssessment
 
             if (Game.GetKeyDown((int)KeyboardKey.KEY_SPACE) && !_inCoolDown)
             {
-                _currentSprite = _sprite[1];
+                CreateProjectile('f');
+            } //If can and are firing a fireBall
 
-                Projectile projectile = new Projectile(GlobalPosition+Forward, Forward, _damage, _projectileSprite);
-                CreateProjectile(projectile);
-                _timeSinceFire = 0;
-            } //If can and are firing a projectile
+            if (Game.GetKeyDown((int)KeyboardKey.KEY_ONE) && !_inCoolDown)
+            {
+                CreateProjectile('b');
+            } //If can and are firing a Bush
 
             Acceleration = new Vector2(xDirection, yDirection);
 
@@ -98,5 +100,30 @@ namespace MathsForGamesAssessment
         {
             Raylib.DrawText("You Win!", 150, 150, 50, Color.GRAY);
         }
+
+        public void CreateProjectile(char projectileType)
+        {
+            Projectile projectile;
+            _currentSprite = _sprite[1];
+
+            switch (projectileType)
+            {
+                case 'f': //Case fireBall
+                    projectile = new Projectile(GlobalPosition + Forward, Forward, _damage, _fireBallSprite);
+                    break;
+
+                case 'b': //Case Bush
+                    projectile = new Projectile(new Vector2(0, 0), Forward, _damage, _bushSprite, 8, 3);
+                    AddChild(projectile);
+                    break;
+
+                default:
+                    projectile = new Projectile(GlobalPosition + Forward, Forward, _damage, _fireBallSprite);
+                    break;
+            } //Projectile Type switch
+
+            CreateProjectile(projectile);
+            _timeSinceFire = 0;
+        } //Create Projectile function
     } //Player
 } //Maths For Games Assessment

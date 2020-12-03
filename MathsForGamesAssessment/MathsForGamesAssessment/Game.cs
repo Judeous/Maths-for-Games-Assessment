@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using MathLibrary;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,10 +11,8 @@ namespace MathsForGamesAssessment
         private static Scene[] _scenes;
         private static int _currentSceneIndex;
 
-        private int _worldHeight = 24;
-        private int _worldWidth = 33;
-
-
+        private readonly int _worldHeight = 24;
+        private readonly int _worldWidth = 33;
 
         public static int CurrentSceneIndex
         { get { return _currentSceneIndex; } }
@@ -139,23 +138,25 @@ namespace MathsForGamesAssessment
 
         public void Start()
         {
-            char facing = GetPlayerMovementType();
+            Console.Title = "Maths For Games Assessment";
+
+            char facing = GetPlayerTurningMethod();
             Console.Clear();
             DisplayControls(facing);
+
+            int zombieNumber = 0;
+            zombieNumber = GetZombieNumber(zombieNumber);
 
             Raylib.InitWindow(1024, 760, "Maths For Games Assessment");
             Raylib.SetTargetFPS(30);
 
             Console.CursorVisible = false;
-            Console.Title = "Maths For Games Assessment";
 
             Scene scene1 = new Scene();
             Scene scene2 = new Scene();
             Scene scene3 = new Scene();
 
             Player player = new Player(1, 1, facing);
-
-            Zombie zombie = new Zombie(10, 10, player);
 
             Tile[,] tiles = new Tile[_worldWidth, _worldHeight];
 
@@ -171,7 +172,16 @@ namespace MathsForGamesAssessment
             AddScene(scene3);
 
             scene1.AddActor(player);
-            scene1.AddActor(zombie);
+
+            Zombie[] zombies = new Zombie[zombieNumber];
+
+            for (int i = 0; i < zombieNumber; i++)
+            {
+                Random r = new Random();
+                zombies[i] = new Zombie(r.Next(0, Raylib.GetScreenWidth() / 32), r.Next(0, Raylib.GetScreenHeight() / 32), player);
+
+                scene1.AddActor(zombies[i]);
+            } //For every Zombie you'd like to create
 
             SetCurrentScene(startingSceneIndex);
         } //Start
@@ -223,8 +233,7 @@ namespace MathsForGamesAssessment
         {
             Sprite sprite;
 
-            Random r = new Random();
-            int randInt = r.Next(7, 10);
+            int randInt = new Random().Next(7, 10);
 
             switch (randInt)
             {
@@ -252,15 +261,15 @@ namespace MathsForGamesAssessment
             return sprite;
         } //Random Stone Sprite function
 
-        public char GetPlayerMovementType()
+        public char GetPlayerTurningMethod()
         {
-            Console.WriteLine("How would you like to change the direction of your Player?");
-            Console.WriteLine("1: Look where the cursor is (Recommended)\n2: Turn left using Left Arrow and turn right using Right Arrow \n3: Look where the Player is moving");
-
             char facing;
             do
             {
+                Console.WriteLine("How would you like to change the direction of your Player?");
+                Console.WriteLine("1: Look where the cursor is (Recommended)\n2: Turn left using Left Arrow and turn right using Right Arrow \n3: Look where the Player is moving");
                 facing = Console.ReadKey().KeyChar;
+                Console.Clear();
             }
             while (facing != '1' && facing != '2' && facing != '3');
 
@@ -291,13 +300,49 @@ namespace MathsForGamesAssessment
             Console.WriteLine("Move Right: D");
             Console.WriteLine("");
             Console.WriteLine("Shoot Fireball: Space");
-            if(facingType == 'a')
+            Console.WriteLine("Shoot Bush:     1");
+            if (facingType == 'a')
             {
                 Console.WriteLine("");
                 Console.WriteLine("Turn Left:  Left Arrow");
                 Console.WriteLine("Turn Right: Right Arrow");
             }
             Console.ReadKey();
+            Console.Clear();
         } //Display Controls function
+
+        public int GetZombieNumber(int zombieNumber)
+        {
+            string zombieNumberCandidate;
+            char selection;
+
+            do
+            {
+                Console.WriteLine("Would you like a specific number of Zombies, or would you like a random number from 1 to 10?");
+                Console.WriteLine("1: Specific number\n2: Random");
+                selection = Console.ReadKey().KeyChar;
+                Console.Clear();
+            }
+            while (selection != '1' && selection != '2');
+
+            if(selection == '1')
+            { //If specific number
+                do
+                {
+                    Console.WriteLine("How many Zombies do you want?");
+                    Console.WriteLine("[0 to 10 recommended]");
+                    Console.WriteLine("");
+                    Console.Write("> ");
+                    zombieNumberCandidate = Console.ReadLine();
+                    Int32.TryParse(zombieNumberCandidate, out zombieNumber);
+                    Console.Clear();
+                }
+                while (!Int32.TryParse(zombieNumberCandidate, out zombieNumber));
+            } //If specific number
+            else
+                zombieNumber = new Random().Next(1, 10);
+
+            return zombieNumber;
+        } //Zombie Number
     } //Game
 } //Maths For Games Assessment
