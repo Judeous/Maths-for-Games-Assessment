@@ -1,7 +1,7 @@
 # Maths-for-Games-Assessment README
 
 ## How to Download:
-* Click on this link: https://github.com/Judeous/Maths-for-Games-Assessment/releases/download/1.0/MathsForGamesAssessment.zip
+* Click on this link: https://github.com/Judeous/Maths-for-Games-Assessment/releases/download/1.1/MathsForGamesAssessment.zip
 * Save the file somewhere where you can easily access it
 * Go to the .zip file, right click on it, and select Extract All, then select Extract
 * Open the new folder, open the folder inside that folder, and double click on the file that ends in .exe
