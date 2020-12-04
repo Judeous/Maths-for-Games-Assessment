@@ -24,7 +24,7 @@ namespace MathsForGamesAssessment
 
             _health = 5;
 
-            _currentSprite = _sprite[0];
+            _currentSprite = _sprites[0];
         } //Overload Constructor with Sprite
 
         public Actor Target { get; set; } //Target property
@@ -41,13 +41,13 @@ namespace MathsForGamesAssessment
 
             if (CheckTargetInSight(0.5f, 10))
             { //If target is in sight
-                Acceleration = Acceleration.Normalized + Forward.Normalized;
-                _currentSprite = _sprite[1];
+                Acceleration = (Acceleration + Forward).Normalized;
+                _currentSprite = _sprites[1];
             }
             else
             { //If target isn't in sight
                 GenerateMovement();
-                _currentSprite = _sprite[0];
+                _currentSprite = _sprites[0];
             }
 
             base.Update(deltaTime);
@@ -88,12 +88,10 @@ namespace MathsForGamesAssessment
 
         public void GenerateMovement()
         {
-            Random r = new Random(); //Sets a variable for a randomizer
             int randomX = 0;
             int randomY = 0;
 
-            int forwardsOrNot;
-            forwardsOrNot = r.Next(1, 6);
+            int forwardsOrNot = new Random().Next(1, 6);
 
             switch (forwardsOrNot)
             {
@@ -102,13 +100,13 @@ namespace MathsForGamesAssessment
                     break;
 
                 case 2:
-                    randomX = r.Next(1, 5);
-                    randomY = r.Next(1, 5);
+                    randomX = new Random().Next(1, 5);
+                    randomY = new Random().Next(1, 5);
                     break;
 
                 case 3:
-                    randomX = r.Next(1, 5);
-                    randomY = r.Next(1, 5);
+                    randomX = new Random().Next(1, 5);
+                    randomY = new Random().Next(1, 5);
                     break;
 
                 default:
@@ -174,10 +172,7 @@ namespace MathsForGamesAssessment
 
         public void GenerateRotation()
         {
-            Random r = new Random(); //Sets a variable for a randomizer
-
-            int direction;
-            direction = r.Next(1, 3);
+            int direction = new Random().Next(1, 3);
 
             switch (direction)
             {
@@ -187,10 +182,6 @@ namespace MathsForGamesAssessment
 
                 case 2: //Case CW
                     SetRotation(_rotate -= .02f);
-                    break;
-
-                default:
-
                     break;
             } //Direction switch
 

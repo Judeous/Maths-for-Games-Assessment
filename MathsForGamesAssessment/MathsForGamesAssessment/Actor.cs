@@ -9,7 +9,7 @@ namespace MathsForGamesAssessment
     public class Actor
     {
         protected Sprite _currentSprite;
-        protected Sprite[] _sprite = new Sprite[0];
+        protected Sprite[] _sprites = new Sprite[0];
 
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
@@ -60,6 +60,9 @@ namespace MathsForGamesAssessment
 
         public void AddChild(Actor child)
         {
+            if (child == null)
+                return;
+
             Actor[] tempArray = new Actor[_children.Length + 1];
 
             for (int i = 0; i < _children.Length; i++)
@@ -101,44 +104,46 @@ namespace MathsForGamesAssessment
         public void AddSprite(Sprite sprite)
         {
             //Create a new array with a size one greater than our old array
-            Sprite[] appendedArray = new Sprite[_sprite.Length + 1];
+            Sprite[] appendedArray = new Sprite[_sprites.Length + 1];
             //Copy the values from the old array to the new array
-            for (int i = 0; i < _sprite.Length; i++)
+            for (int i = 0; i < _sprites.Length; i++)
             {
-                appendedArray[i] = _sprite[i];
+                appendedArray[i] = _sprites[i];
             }
             //Set the last value in the new array to be the sprite we want to add
-            appendedArray[_sprite.Length] = sprite;
+            appendedArray[_sprites.Length] = sprite;
             //Set old array to hold the values of the new array
-            _sprite = appendedArray;
+            _sprites = appendedArray;
         } //Add Sprite function
 
         public bool RemoveSprite(int index)
         {
             //Check to see if the index is outside the bounds of our array
-            if (index < 0 || index >= _sprite.Length)
+            if (index < 0 || index >= _sprites.Length)
                 return false;
 
             bool spriteRemoved = false;
 
             //Create a new array with a size one less than our old array 
-            Sprite[] newArray = new Sprite[_sprite.Length - 1];
+            Sprite[] newArray = new Sprite[_sprites.Length - 1];
             //Create variable to access tempArray index
             int j = 0;
             //Copy values from the old array to the new array
-            for (int i = 0; i < _sprite.Length; i++)
+            for (int i = 0; i < _sprites.Length; i++)
             {
                 //If the current index is not the index that needs to be removed,
                 //add the value into the old array and increment j
                 if (i != index)
                 {
-                    newArray[j] = _sprite[i];
+                    newArray[j] = _sprites[i];
                     j++;
                 }
+                else
+                    spriteRemoved = true;
             } //For every Sprite
 
             //Set the old array to be the tempArray
-            _sprite = newArray;
+            _sprites = newArray;
             return spriteRemoved;
         } //Remove Sprite by index
 
@@ -150,21 +155,21 @@ namespace MathsForGamesAssessment
 
             bool spriteRemoved = false;
             //Create a new array with a size one less than our old array
-            Sprite[] newArray = new Sprite[_sprite.Length - 1];
+            Sprite[] newArray = new Sprite[_sprites.Length - 1];
             //Create variable to access tempArray index
             int j = 0;
             //Copy values from the old array to the new array
-            for (int i = 0; i < _sprite.Length; i++)
+            for (int i = 0; i < _sprites.Length; i++)
             {
-                if (sprite != _sprite[i])
+                if (sprite != _sprites[i])
                 {
-                    newArray[j] = _sprite[i];
+                    newArray[j] = _sprites[i];
                     j++;
                 }
             }
 
             //Set the old array to the new array
-            _sprite = newArray;
+            _sprites = newArray;
             //Return whether or not the removal was successful
             return spriteRemoved;
         } //Remove Sprite by Sprite
@@ -200,8 +205,7 @@ namespace MathsForGamesAssessment
         {
             if (_health <= 0)
             {
-                Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-                scene.RemoveActor(this);
+                Game.GetScenes(Game.CurrentSceneIndex).RemoveActor(this);
                 End();
                 return;
             } //If this Actor is dead
@@ -247,6 +251,7 @@ namespace MathsForGamesAssessment
             if (actor._collRadius + _collRadius > (actor.GlobalPosition - GlobalPosition).Magnitude && actor != this)
             { //If distance between this Actor and the passed in Actor is less than the two radii
                 OnCollision(actor);
+                return true;
             }
             return false;
         } //Check Collision function
@@ -320,8 +325,7 @@ namespace MathsForGamesAssessment
 
         public void CreateProjectile(Projectile projectile)
         {
-            Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-            scene.AddActor(projectile);
+            Game.GetScenes(Game.CurrentSceneIndex).AddActor(projectile);
         } //Create Projectile function
     } //Actor
 } //Maths For Games Assessment

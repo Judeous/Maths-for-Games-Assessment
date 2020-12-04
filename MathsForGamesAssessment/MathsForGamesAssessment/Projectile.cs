@@ -38,8 +38,8 @@ namespace MathsForGamesAssessment
 
             if (_timeSinceCreation >= _duration)
             {
-                Scene scene = Game.GetScenes(Game.CurrentSceneIndex);
-                scene.RemoveActor(this);
+                Game.GetScenes(Game.CurrentSceneIndex).RemoveActor(this);
+                return;
             } //If time since creation is greater than the duration
 
             Velocity = Forward * _speed;
@@ -48,18 +48,12 @@ namespace MathsForGamesAssessment
 
         public override void OnCollision(Actor actor)
         {
-            if(actor is Projectile)
+            if (!(actor is Tile))
             {
-                Vector2 direction = actor.GlobalPosition - GlobalPosition;
-                actor.SetTranslate(actor.LocalPosition + direction.Normalized);
-            }
-            else if (!(actor is Tile))
-            {
-                Vector2 direction = actor.GlobalPosition - GlobalPosition;
-                actor.SetTranslate(actor.LocalPosition + direction.Normalized);
                 actor.TakeDamage(_damage);
+                actor.SetTranslate(actor.LocalPosition + (actor.GlobalPosition - GlobalPosition));
                 TakeDamage(1);
-            }
+            } //If actor isn't a Tile
         } //Collide override
     } //Projectile
 } //Maths For Games Assessment

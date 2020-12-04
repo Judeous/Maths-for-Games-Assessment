@@ -50,11 +50,13 @@ namespace MathsForGamesAssessment
             int yDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_W))
                 + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_S));
 
+            Acceleration = new Vector2(xDirection, yDirection);
+
             _timeSinceFire += deltaTime;
             if (_timeSinceFire >= _fireCoolDown)
             {
                 _inCoolDown = false;
-                _currentSprite = _sprite[5];
+                _currentSprite = _sprites[5];
             }
             else
                 _inCoolDown = true;
@@ -69,7 +71,6 @@ namespace MathsForGamesAssessment
                 CreateProjectile('b');
             } //If can and are firing a Bush
 
-            Acceleration = new Vector2(xDirection, yDirection);
 
             base.Update(deltaTime);
         } //Update override
@@ -104,7 +105,7 @@ namespace MathsForGamesAssessment
         public void CreateProjectile(char projectileType)
         {
             Projectile projectile;
-            _currentSprite = _sprite[1];
+            _currentSprite = _sprites[1];
 
             switch (projectileType)
             {
