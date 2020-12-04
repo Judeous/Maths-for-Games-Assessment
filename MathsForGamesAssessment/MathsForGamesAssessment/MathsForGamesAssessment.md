@@ -198,6 +198,7 @@
 
     void Draw:
         If _currentSprite isn't null, then call it's Draw function, passing in GlobalTransform
+        If this isn't a Tile nor a Projectile, then Call Raylib's DrawText function, passing in _health, and positioning it to display in the current "tile" that the Actor is in
 
     void End:
         Set Started to false

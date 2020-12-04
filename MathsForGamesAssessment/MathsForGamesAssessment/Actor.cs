@@ -234,6 +234,8 @@ namespace MathsForGamesAssessment
             //If Actor has a Sprite, draw it
             if (_currentSprite != null)
                 _currentSprite.Draw(_globalTransform);
+            if (!(this is Tile) && !(this is Projectile))
+                Raylib.DrawText(_health + " HP", ((int)GlobalPosition.X) * 32, ((int)GlobalPosition.Y) * 32, 20, Color.DARKGRAY);
         } //Draw
 
         public virtual void End()
